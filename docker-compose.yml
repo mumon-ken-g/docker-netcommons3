@@ -1,0 +1,19 @@
+version: '3.5'
+services:
+  db:
+    image: mysql:5.6
+    volumes:
+     - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: netcommons
+      MYSQL_USER: netcommons
+      MYSQL_PASSWORD: netcommons
+  web:
+    build: ./php
+    ports:
+     - 80:80
+    depends_on:
+     - db
+volumes:
+  db_data:
