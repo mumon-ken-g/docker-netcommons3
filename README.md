@@ -1,12 +1,10 @@
 # docker-netcommons3
-docker compose for netcommons3
-
 dockerでNetCommons3を動かすためのdocker-composeファイル
 
 ## 使い方
 ### NetCommonsの起動
 ```bash
-$ docker-compose up -d
+docker-compose up -d
 ```
 ### NetCommonsのインストール
 1. ブラウザで`http://localhost/`を開く
