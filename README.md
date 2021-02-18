@@ -53,6 +53,7 @@ services:
 
 #### サーバ証明書と秘密鍵を用意する。
 サーバ証明書と秘密鍵をホストの任意の場所に保存する。
+開発環境で証明書を用意するには[mkcert](https://github.com/FiloSottile/mkcert)がおすすめ。
 
 #### Dockerfileの修正
 以下の設定を追記する。
