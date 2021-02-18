@@ -6,9 +6,7 @@ services:
      - db_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: netcommons
-      MYSQL_USER: netcommons
-      MYSQL_PASSWORD: netcommons
+      MYSQL_DATABASE: nc3
   web:
     build: ./php
     ports:
