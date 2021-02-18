@@ -16,3 +16,8 @@ RUN mkdir -p /usr/src/netcommons \
   && mv /usr/src/netcommons/NetCommons3/* /usr/src/netcommons/NetCommons3/.[^\.]* /var/www/html/ \
   && rm -rf /usr/src/netcommons \
   && chown -R www-data:www-data /var/www/html/*
+
+# for SSL
+# COPY ssl.conf /etc/apache2/sites-available/ssl.conf
+# RUN a2enmod ssl && a2ensite ssl
+

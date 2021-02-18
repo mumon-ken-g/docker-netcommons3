@@ -46,6 +46,64 @@ services:
 
 インストール画面でdocker-compose.ymlに追加したユーザ名（ID）とパスワードを入力する。
 
+### SSLを使用する場合
+1. サーバ証明書と秘密鍵を用意する。
+1. Dockerfile、docker-compose.yml、ssl.confを修正する。
+1. イメージのビルドを行う。
+
+#### サーバ証明書と秘密鍵を用意する。
+サーバ証明書と秘密鍵をホストの任意の場所に保存する。
+
+#### Dockerfileの修正
+以下の設定を追記する。
+
+```Dockerfile
+# php/Dockerfile
+
+# for SSL
+COPY ssl.conf /etc/apache2/sites-available/ssl.conf
+RUN a2enmod ssl && a2ensite ssl
+```
+
+#### docker-compose.ymlの修正
+webサービスにvolumesの設定を追記し、ホストで証明書と秘密鍵を保存しているパスに変更する。
+
+```yml
+# docker-compose.yml
+
+services:
+  web:
+  ...
+    ### SSLを使用する場合は以下を有効にし、鍵ベアのあるローカルパスを指定する。 ###
++   volumes:
++    - /pass/to/your/keys:/etc/apache2/ssl/keys
+```
+
+#### ssl.confの修正
+1. ssl.confのドメイン名を適切なものに修正する。
+2. 証明書と秘密鍵のファイル名を実際のものに修正する。
+
+```
+# php/ssl.conf
+
+<VirtualHost *:443>
+    DocumentRoot /var/www/html
+
+    # 適切なドメインに変更すること
++   ServerName your.domain
+    SSLEngine on
+
+    # 鍵ペアのファイル名を実際のものに変更する。
++   SSLCertificateFile /etc/apache2/ssl/keys/your_certfile.pem
++   SSLCertificateKeyFile /etc/apache2/ssl/keys/your_certfile-key.pem
+</VirtualHost>
+```
+
+#### イメージのビルドを行う
+```bash
+docker-compose build
+```
+
+
 ## 参考
-NetCommons公式サイト
-https://www.netcommons.org/
+[NetCommons公式サイト](https://www.netcommons.org/)

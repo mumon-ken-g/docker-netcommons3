@@ -7,11 +7,18 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: nc3
+      #### root以外のユーザを使用する場合は以下を有効にする。 ###
+      # MYSQL_USER: user
+      # MYSQL_PASSWORD: pass
   web:
     build: ./php
     ports:
      - 80:80
+     - 443:443
     depends_on:
      - db
+    ### SSLを使用する場合は以下を有効にし、鍵ベアのあるローカルパスを指定する。 ###
+    # volumes:
+    #  - /pass/to/your/keys:/etc/apache2/ssl/keys
 volumes:
   db_data:
