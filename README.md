@@ -16,6 +16,11 @@ docker-compose.ymlのDBサービスenvironmentで変更する。
 ```yml
 # docker-compose.yml
 
+services:
+  db:
+    image: mysql:5.6
+    volumes:
+     - db_data:/var/lib/mysql
     environment:
 -     MYSQL_ROOT_PASSWORD: root # ここを削除
 +     MYSQL_ROOT_PASSWORD: 任意のパスワード # ここを変更する
@@ -27,14 +32,20 @@ docker-compose.ymlのDBサービスenvironmentで変更する。
 ```yml
 # docker-compose.yml
 
+services:
+  db:
+    image: mysql:5.6
+    volumes:
+     - db_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: nc3
-+      MYSQL_USER: ユーザ名       # 追加
-+      MYSQL_PASSWORD: バスワード # 追加
++     MYSQL_USER: ユーザ名       # 追加
++     MYSQL_PASSWORD: バスワード # 追加
 ```
 
 インストール画面でdocker-compose.ymlに追加したユーザ名（ID）とパスワードを入力する。
 
+## 参考
 NetCommons公式サイト
 https://www.netcommons.org/
